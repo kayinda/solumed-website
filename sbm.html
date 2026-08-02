@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solumed Business Manager — the offline till for your business</title>
+<meta name="description" content="Solumed Business Manager: a complete offline-first point-of-sale and business manager for shops, pharmacies, salons, restaurants and mobile-money agents. Android, Windows, Mac. Pay once.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="brand" href="index.html"><span class="logo">S+</span>
+      <span><b>SOLUMED PLUS</b><small>Solumed Business Manager · flagship software</small></span></a>
+    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
+    <nav class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="software.html">Software</a>
+      <a href="sfm.html">Finance Manager</a>
+      <a href="logistics.html">Supply &amp; Logistics</a>
+      <a class="nav-cta" href="#download">⬇ Download app</a>
+    </nav>
+  </div>
+</header>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="wrap hero-split">
+    <div>
+      <span class="badge">Software Solutions · Flagship product</span>
+      <h1>The till that runs a shop <span style="color:var(--orange)">with no internet.</span></h1>
+      <p class="sub">Solumed Business Manager is a complete point-of-sale and back-office for the shops, pharmacies, salons, restaurants and mobile-money agents that power African high streets — on Android, Windows and Mac. Pay once. Runs forever, offline.</p>
+      <div class="cta-row">
+        <a class="btn btn-orange" href="#demo">▶ Try the real till</a>
+        <a class="btn btn-ghost" href="#features" style="color:#7fcbe0;border-color:#7fcbe0">See features →</a>
+      </div>
+      <div class="hero-dl" id="download" style="margin-top:20px">
+        <div style="color:#8fb7c4;font-size:13px;font-weight:600;letter-spacing:.4px;margin-bottom:8px">⬇ DOWNLOAD THE FREE TRIAL</div>
+        <div style="display:flex;gap:10px;flex-wrap:wrap">
+          <a class="btn btn-orange" data-track="dl-apk" href="downloads/Solumed-Business-Manager.apk" download style="padding:11px 16px">Android · APK · 21 MB</a>
+          <a class="btn btn-dl" data-track="dl-win" href="downloads/Solumed-Setup.exe" download style="padding:11px 16px;background:#fff;color:#0e3d4d;border-radius:10px;font-weight:700">Windows · 13 MB</a>
+          <a class="btn btn-dl" data-track="dl-mac" href="downloads/Solumed-Business-Manager-Mac.dmg" download style="padding:11px 16px;background:#fff;color:#0e3d4d;border-radius:10px;font-weight:700">macOS · 13 MB</a>
+        </div>
+        <div style="margin-top:12px;color:#9fb0b6;font-size:13px;line-height:1.7">
+          Runs fully offline once installed · first sign-in <code style="color:#cfe3e9">admin / admin123</code><br>
+          <a href="downloads/SBM-User-Manual.pdf" data-track="dl-manual" style="color:#7fcbe0">📘 User manual (PDF)</a>
+          &nbsp;·&nbsp;
+          <a href="downloads/Solumed - Product Import Template.xlsx" data-track="dl-template" download style="color:#7fcbe0">📊 Product import template (Excel)</a>
+        </div>
+      </div>
+      <div class="heronote" style="margin-top:22px;color:#b8b8bd;font-size:14px;display:flex;gap:18px;flex-wrap:wrap">
+        <span><b style="color:#fff">3</b> platforms</span>
+        <span><b style="color:#fff">8</b> business types</span>
+        <span><b style="color:#fff">0</b> monthly fees</span>
+        <span><b style="color:#fff">100%</b> offline</span>
+      </div>
+    </div>
+    <div>
+      <div class="phone" aria-hidden="true">
+        <div class="screen">
+          <div class="pnav"><span class="on">Dash</span><span>Sell</span><span>Stock</span><span>Reports</span></div>
+          <div class="pbody">
+            <div class="pcard"><div class="k">Today's sales</div><div class="v green">UGX 559,500</div></div>
+            <div class="pcard"><div class="k">Transactions</div><div class="v">42</div></div>
+            <div class="pcard"><div class="k">Mobile-money float</div><div class="v">UGX 1,240,000</div></div>
+            <div class="pcard"><div class="k">Low stock</div><div class="v" style="color:#7fcbe0">3 items</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- LIVE DEMO -->
+<section id="demo" class="alt">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Interactive preview</span>
+      <h2>Ring up a sale. This is the actual checkout flow.</h2>
+      <p>Tap products to build a basket, adjust quantities, and complete the sale — the same flow shopkeepers use on the phone and desktop apps. Your "day" updates live below.</p>
+    </div>
+    <div class="till">
+      <div class="panel">
+        <h3>🛒 Kampala Fresh Mart — products</h3>
+        <div class="prod-grid" id="prodGrid"></div>
+      </div>
+      <div class="panel">
+        <h3>Basket</h3>
+        <div class="cart-lines" id="cartLines"><div class="empty">Tap a product to start a sale.</div></div>
+        <div class="total-row"><span class="lbl">Total</span><span class="amt" id="cartTotal">UGX 0</span></div>
+        <button class="btn btn-orange" style="width:100%;justify-content:center" id="checkoutBtn">Complete sale</button>
+        <div class="till-stats">
+          <div class="tstat"><div class="k">Sales today</div><div class="v green" id="dSales">UGX 0</div></div>
+          <div class="tstat"><div class="k">Sales count</div><div class="v" id="dCount">0</div></div>
+          <div class="tstat"><div class="k">Items sold</div><div class="v" id="dItems">0</div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section id="features">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">What's inside</span>
+      <h2>One app, reshaped for eight trades</h2>
+      <p>Choose a business type and the app hides what you don't need and surfaces what you do — a salon never sees drug-expiry tracking; a mobile-money agent gets a float ledger instead of a stockroom.</p>
+    </div>
+    <div class="grid three">
+      <div class="card"><span class="ic">▤</span><h3>Point of Sale</h3><p>Fast search or barcode scan, cart with quantity editing, discounts, VAT, cash / mobile-money / card, and printed &amp; reprintable receipts.</p></div>
+      <div class="card"><span class="ic">▦</span><h3>Inventory &amp; expiry</h3><p>Stock levels, reorder alerts, suppliers, CSV import, plus batch &amp; expiry tracking with "expiring soon" alerts for groceries and pharmacies.</p></div>
+      <div class="card"><span class="ic">⟳</span><h3>Mobile-money agent banking</h3><p>A full float module: deposits, withdrawals, transfers across MTN / Airtel / bank, auto-commission from built-in tariff tables, day-close float check.</p></div>
+      <div class="card"><span class="ic">📇</span><h3>Debtors book</h3><p>Sell on credit and track exactly who owes you, record part-payments, and clear debts — replacing the exercise book every shop keeps.</p></div>
+      <div class="card"><span class="ic">◉</span><h3>Reports to send</h3><p>Day / week / month P&amp;L, top sellers, balance sheet, and a WhatsApp-ready business report the owner sends in one tap.</p></div>
+      <div class="card"><span class="ic">◨</span><h3>Multi-till over Wi-Fi</h3><p>Several tills in one shop share one live stock and one combined report over the local network — no cloud, no internet needed.</p></div>
+      <div class="card"><span class="ic">☁</span><h3>Watch from anywhere</h3><p>An owner's private online dashboard shows today, this week, this month, or any date range — with a downloadable PDF. Monitor the shop from your phone, wherever you are. The till stays fully offline; it just checks in when it finds internet.</p></div>
+      <div class="card"><span class="ic">🛡</span><h3>Cloud backup &amp; restore</h3><p>Back the whole system up online in one tap. If a device is lost, stolen or dies, restore everything onto a new one — your business is never trapped on one machine.</p></div>
+      <div class="card"><span class="ic">✂</span><h3>Services &amp; staff commission</h3><p>For salons, clinics, guesthouses and workshops: sell services, and split one job's commission across several staff at their own rates — the barber and the stylist each get their cut of the same haircut.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD -->
+<!-- PRICING -->
+<section id="pricing">
+  <div class="wrap">
+    <div class="sec-head"><span class="eyebrow">Pricing</span>
+      <h2>Pay once. No monthly fees. Ever.</h2>
+      <p>You buy the licence once and own it for life — no subscriptions, no monthly fees. Every install comes with a free 14-day trial, and the licence is per device.</p>
+    </div>
+    <div class="card" style="text-align:center">
+      <p style="font-size:17px;margin:0 0 6px;color:var(--ink)">Pricing is tailored to your business type and setup (single till or multi-till).</p>
+      <p style="color:var(--ink2);margin:0 0 18px">Tell us a little about your business and we'll send you a quote.</p>
+      <a class="btn btn-orange" href="index.html#contact">Request a quote →</a>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div>
+      <div class="brand" style="margin-bottom:6px"><span class="logo">S+</span><b style="color:#fff">SOLUMED PLUS LIMITED</b></div>
+      <div class="tag">Solving Health. Scaling Solutions.</div>
+      <p style="font-size:13px;margin-top:12px">Solumed Business Manager is the flagship of our Software Solutions line.</p>
+    </div>
+    <div><h4>Our work</h4>
+      <a href="index.html#software">Software Solutions</a><a href="index.html#research">Research &amp; Innovation</a>
+      <a href="rxsteward.html">Rx Steward (preview)</a><a href="index.html#logistics">Supply &amp; Logistics</a></div>
+    <div><h4>Contact</h4>
+      <a href="mailto:info@solumedplus.com">info@solumedplus.com</a>
+      <a href="https://wa.me/256775377245">WhatsApp 0775 377 245</a></div>
+  </div>
+  <div class="foot-bottom">© 2026 Solumed Plus Limited · Solumed Business Manager works fully offline; demo data on this page is illustrative.</div>
+</footer>
+
+<div class="toast" id="toast"></div>
+
+<script>
+  var mb=document.getElementById('menuBtn'),nl=document.getElementById('navLinks');
+  mb.addEventListener('click',function(){nl.classList.toggle('open');});
+  nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});
+
+  // ---- interactive till ----
+  (function(){
+  var PRODUCTS=[
+    {n:'Sugar 1kg',p:4000},{n:'Cooking oil 1L',p:9500},{n:'Bar soap',p:2500},
+    {n:'Bread loaf',p:5500},{n:'Milk 500ml',p:2200},{n:'Rice 2kg',p:8000},
+    {n:'Airtime 5k',p:5000},{n:'Soda 500ml',p:2000},{n:'Maize flour 2kg',p:7000}
+  ];
+  var cart=[], day={sales:0,count:0,items:0};
+  var grid=document.getElementById('prodGrid'), lines=document.getElementById('cartLines'),
+      totalEl=document.getElementById('cartTotal'), toast=document.getElementById('toast');
+  function ugx(n){return 'UGX '+n.toLocaleString('en-US');}
+  PRODUCTS.forEach(function(pr,i){
+    var b=document.createElement('button'); b.className='prod'; b.type='button';
+    b.innerHTML='<div class="n">'+pr.n+'</div><div class="p">'+ugx(pr.p)+'</div>';
+    b.addEventListener('click',function(){add(i);}); grid.appendChild(b);
+  });
+  function add(i){
+    var pr=PRODUCTS[i], row=cart.find(function(c){return c.i===i;});
+    if(row){row.q++;} else {cart.push({i:i,n:pr.n,p:pr.p,q:1});}
+    render();
+  }
+  function chg(i,d){
+    var row=cart.find(function(c){return c.i===i;}); if(!row)return;
+    row.q+=d; if(row.q<=0){cart=cart.filter(function(c){return c.i!==i;});}
+    render();
+  }
+  function render(){
+    if(!cart.length){lines.innerHTML='<div class="empty">Tap a product to start a sale.</div>';}
+    else{
+      lines.innerHTML='';
+      cart.forEach(function(c){
+        var el=document.createElement('div'); el.className='line';
+        el.innerHTML='<span class="nm">'+c.n+'</span>'+
+          '<button class="qbtn" aria-label="less">–</button>'+
+          '<span class="qn">'+c.q+'</span>'+
+          '<button class="qbtn" aria-label="more">+</button>'+
+          '<span class="lt">'+ugx(c.p*c.q)+'</span>';
+        var bs=el.querySelectorAll('.qbtn');
+        bs[0].addEventListener('click',function(){chg(c.i,-1);});
+        bs[1].addEventListener('click',function(){chg(c.i,1);});
+        lines.appendChild(el);
+      });
+    }
+    var t=cart.reduce(function(s,c){return s+c.p*c.q;},0);
+    totalEl.textContent=ugx(t);
+  }
+  document.getElementById('checkoutBtn').addEventListener('click',function(){
+    var t=cart.reduce(function(s,c){return s+c.p*c.q;},0);
+    if(!t){showToast('Add a product first');return;}
+    var items=cart.reduce(function(s,c){return s+c.q;},0);
+    day.sales+=t; day.count++; day.items+=items; cart=[]; render();
+    document.getElementById('dSales').textContent=ugx(day.sales);
+    document.getElementById('dCount').textContent=day.count;
+    document.getElementById('dItems').textContent=day.items;
+    showToast('Sale complete · '+ugx(t)+' · receipt printed');
+    try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:'demo-sale-completed',title:'demo-sale-completed',event:true});}catch(e){}
+  });
+  var tmo;
+  function showToast(m){toast.textContent=m;toast.classList.add('show');clearTimeout(tmo);tmo=setTimeout(function(){toast.classList.remove('show');},2200);}
+  })();
+
+  // analytics
+  var GC="kaysfrancis";
+  if(GC){var g=document.createElement('script');g.async=true;g.src='//gc.zgo.at/count.js';
+    g.setAttribute('data-goatcounter','https://'+GC+'.goatcounter.com/count');document.body.appendChild(g);}
+  function track(n){try{if(window.goatcounter&&window.goatcounter.count)window.goatcounter.count({path:n,title:n,event:true});}catch(e){}}
+  document.querySelectorAll('[data-track]').forEach(function(el){el.addEventListener('click',function(){track(el.getAttribute('data-track'));});});
+</script>
+</body>
+</html>

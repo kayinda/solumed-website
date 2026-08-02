@@ -1,0 +1,8 @@
+.DS_Store
+.AppleDouble
+.LSOverride
+Thumbs.db
+# big installer binaries — updated separately, not on every site push
+downloads/*.dmg
+downloads/*.exe
+downloads/*.apk
