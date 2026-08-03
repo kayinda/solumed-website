@@ -166,6 +166,10 @@
   .drug-checks{display:flex; flex-wrap:wrap; gap:6px; margin-top:4px;}
   .drug-checks label{display:inline-flex; align-items:center; gap:5px; font-size:.82rem; text-transform:none; letter-spacing:0; font-weight:500; color:#374151; background:var(--mist); border:1px solid var(--line); border-radius:8px; padding:5px 9px; margin:0;}
   .radio-row{display:flex; gap:14px; margin-top:4px;} .radio-row label{font-size:.85rem; text-transform:none; letter-spacing:0; font-weight:500; color:#374151; display:inline-flex; gap:5px; align-items:center;}
+  /* Checkboxes + radios must be tiny native controls, not stretched to 100% by
+     the generic '.fullrow input' rule above (which was covering the drug names). */
+  .fullrow input[type=checkbox], .fullrow input[type=radio],
+  .drug-checks input, .radio-row input { width:auto; padding:0; margin:0; }
   .btn{display:inline-block; padding:10px 16px; border-radius:9px; border:none; font-weight:700; font-size:.9rem; cursor:pointer;}
   .btn-primary{background:var(--teal); color:#fff;} .btn-ghost{background:#fff; color:var(--reserve); border:1px solid var(--line);}
   .ok{background:#D1FAE5; color:#065F46; border:1px solid #8FE0B4; border-radius:9px; padding:9px 12px; font-size:.85rem; margin:8px 0;}
