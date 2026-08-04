@@ -86,9 +86,20 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--charcoal);
 /* ---- sections ---- */
 section{padding:70px 0}
 section.alt{background:#fff;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.sec-head{max-width:64ch;margin-bottom:36px}
+.sec-head{max-width:64ch;margin:0 auto 36px;text-align:center}
 .sec-head h2{font-size:clamp(26px,3.6vw,38px);margin-top:12px}
 .sec-head p{color:var(--ink2);margin:14px 0 0;font-size:17px}
+/* compact, tucked-away blocks (about/team details) */
+details.tuck{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:14px}
+details.tuck summary{cursor:pointer;font-weight:700;color:var(--ink);font-size:16px}
+details.tuck[open]{padding-bottom:20px}
+.quick-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:14px;margin-top:22px}
+.quick-tiles a.qt{display:block;background:#fff;border:1.5px solid var(--line);border-radius:14px;
+  padding:18px 16px;text-decoration:none;color:var(--ink);font-weight:700;text-align:center;
+  transition:transform .12s, border-color .12s}
+.quick-tiles a.qt:hover{transform:translateY(-3px);border-color:var(--orange)}
+.quick-tiles a.qt .qi{font-size:26px;display:block;margin-bottom:6px}
+.quick-tiles a.qt small{display:block;color:var(--ink2);font-weight:500;margin-top:4px;font-size:12.5px}
 
 /* ---- stat row ---- */
 .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:16px}
