@@ -3,105 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Rx Steward — Solumed Plus Limited</title>
-<meta name="description" content="Rx Steward — antimicrobial stewardship clinical decision support: guideline-aligned empiric therapy, Uganda resistance data and WHO AWaRe classification.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+<meta name="robots" content="noindex,nofollow">
+<title>RxSteward — private validation phase</title>
 <style>
-  .rx-embed-wrap{background:#0e1b2a;padding:0}
-  .rx-embed-bar{max-width:var(--maxw,1200px);margin:0 auto;padding:12px 24px;display:flex;
-    align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
-  .rx-embed-bar .note{color:#90b4d4;font-size:13px}
-  .rx-embed-bar a.newtab{color:#D4A843;font-weight:700;font-size:13px;text-decoration:none;white-space:nowrap}
-  .rx-embed-bar a.newtab:hover{text-decoration:underline}
-  .rx-frame-holder{position:relative;width:100%;background:#0e1b2a;min-height:80vh}
-  #rxFrame{display:block;width:100%;height:calc(100vh - 60px);min-height:640px;border:0;background:#0e1b2a}
-  .rx-loading{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;
-    justify-content:center;gap:14px;color:#cfe0ee;background:#0e1b2a;text-align:center;padding:24px}
-  .rx-loading.hidden{display:none}
-  .rx-spin{width:34px;height:34px;border:3px solid rgba(212,168,67,.25);border-top-color:#D4A843;
-    border-radius:50%;animation:rxspin 0.9s linear infinite}
-  @keyframes rxspin{to{transform:rotate(360deg)}}
-  .rx-loading .big{font-family:'Poppins',sans-serif;font-weight:700;font-size:18px;color:#fff}
-  .rx-loading .sub{font-size:13.5px;color:#90b4d4;max-width:420px}
-  .rx-disc{background:#122b45;border-top:1px solid rgba(255,255,255,.07);border-bottom:1px solid rgba(255,255,255,.07)}
-  .rx-disc .wrap{padding:12px 24px;color:#b9cbdc;font-size:13px}
-  .rx-disc strong{color:#fff}
+body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#0B3C49;color:#fff;
+display:flex;align-items:center;justify-content:center;min-height:100vh;text-align:center;padding:24px}
+.card{max-width:520px}h1{font-size:28px;margin:0 0 12px}p{color:#cfe3e9;line-height:1.6;font-size:16px}
+a{color:#FFC24B;font-weight:600;text-decoration:none}
+.ic{font-size:44px;margin-bottom:10px}
 </style>
 </head>
 <body>
-
-<header class="nav">
-  <div class="nav-inner">
-    <a class="brand" href="index.html"><span class="logo">S+</span>
-      <span><b>SOLUMED PLUS</b><small>Rx Steward · research preview (in development)</small></span></a>
-    <button class="menu-btn" id="menuBtn" aria-label="Menu">☰</button>
-    <nav class="nav-links" id="navLinks">
-      <a href="index.html">Home</a>
-      <a href="software.html">Software</a>
-      <a href="research.html">Research &amp; Innovation</a>
-      <a href="logistics.html">Supply &amp; Logistics</a>
-      <a class="nav-cta" href="index.html#contact">Contact</a>
-    </nav>
-  </div>
-</header>
-
-<!-- Clinical disclaimer strip -->
-<div class="rx-disc">
-  <div class="wrap">
-    <strong>⚠️ Clinical decision-support tool — not a substitute for clinical judgement.</strong>
-    Empiric guidance only; always confirm with culture &amp; sensitivity where available, local guidelines and the patient's full clinical picture. Verify all doses.
-  </div>
+<div class="card">
+  <div class="ic">℞</div>
+  <h1>RxSteward is in a clinical validation phase</h1>
+  <p>Access is currently limited to research partners and funders while the
+     underlying data is validated. If you are a potential partner, funder, or
+     reviewer, we would love to walk you through it.</p>
+  <p>Contact Solumed Plus Limited:<br>
+     <a href="mailto:info@solumedplus.com">info@solumedplus.com</a> ·
+     <a href="https://wa.me/256775377245">WhatsApp 0775 377 245</a></p>
+  <p><a href="index.html">← Back to solumedplus.com</a></p>
 </div>
-
-<!-- Live embedded Rx Steward app -->
-<div class="rx-embed-wrap">
-  <div class="rx-embed-bar">
-    <span class="note">💊 Rx Steward — live research preview by Solumed Plus Limited</span>
-    <a class="newtab" href="rxsteward/" target="_blank" rel="noopener">Open full screen ↗</a>
-  </div>
-</div>
-<div class="rx-frame-holder">
-  <div class="rx-loading" id="rxLoading">
-    <div class="rx-spin"></div>
-    <div class="big">Loading Rx Steward…</div>
-    <div class="sub">The clinical tool is starting up. This can take a few seconds the first time it's opened.</div>
-  </div>
-  <iframe id="rxFrame"
-          src="rxsteward/"
-          title="Rx Steward — antimicrobial stewardship decision support"
-          loading="eager"
-          allow="clipboard-write; fullscreen"></iframe>
-</div>
-
-<footer class="foot">
-  <div class="wrap">
-    <div>
-      <div class="brand" style="margin-bottom:6px"><span class="logo">S+</span><b style="color:#fff">SOLUMED PLUS LIMITED</b></div>
-      <div class="tag">Solving Health. Scaling Solutions.</div>
-    </div>
-    <div><h4>Our work</h4>
-      <a href="software.html">Software</a><a href="research.html">Research &amp; Innovation</a>
-      <a href="rxsteward.html">Rx Steward (preview)</a><a href="logistics.html">Supply &amp; Logistics</a></div>
-    <div><h4>Contact</h4>
-      <a href="mailto:info@solumedplus.com">info@solumedplus.com</a>
-      <a href="https://wa.me/256775377245">WhatsApp 0775 377 245</a></div>
-  </div>
-  <div class="foot-bottom">URSB Reg. No. 80034977119589 · © 2026 Solumed Plus Limited. Rx Steward is decision support, not a prescription.</div>
-</footer>
-
-<script>
-  var mb=document.getElementById('menuBtn'),nl=document.getElementById('navLinks');
-  mb.addEventListener('click',function(){nl.classList.toggle('open');});
-  // hide the loading overlay once the app frame loads
-  var fr=document.getElementById('rxFrame'), ld=document.getElementById('rxLoading');
-  fr.addEventListener('load',function(){ ld.classList.add('hidden'); });
-  // safety: hide the overlay after 12s regardless
-  setTimeout(function(){ ld.classList.add('hidden'); }, 12000);
-  var GC="kaysfrancis";if(GC){var g=document.createElement('script');g.async=true;g.src='//gc.zgo.at/count.js';
-    g.setAttribute('data-goatcounter','https://'+GC+'.goatcounter.com/count');document.body.appendChild(g);}
-</script>
 </body>
 </html>
