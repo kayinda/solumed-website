@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <meta name="theme-color" content="#0f766e">
-<title>Sente — Money Tracker</title>
+<title>Sente - Money Tracker</title>
 <style>
   :root{
     --bg:#f5f6f8; --card:#ffffff; --ink:#111827; --muted:#6b7280; --line:#e5e7eb;
@@ -178,7 +178,7 @@
     <h1><span class="logo">S</span> Sente</h1>
     <div class="month-pick">
       <button id="mPrev" aria-label="Previous month">‹</button>
-      <span class="lbl" id="mLbl">—</span>
+      <span class="lbl" id="mLbl">-</span>
       <button id="mNext" aria-label="Next month">›</button>
     </div>
   </header>
@@ -187,10 +187,10 @@
   <section id="home" class="active">
     <div class="card hero">
       <div class="bal-label">Total balance · all accounts</div>
-      <div class="bal" id="hBal">—</div>
+      <div class="bal" id="hBal">-</div>
       <div class="row">
-        <div class="stat"><div class="k">▲ Income this month</div><div class="v" id="hInc">—</div></div>
-        <div class="stat"><div class="k">▼ Spent this month</div><div class="v" id="hExp">—</div></div>
+        <div class="stat"><div class="k">▲ Income this month</div><div class="v" id="hInc">-</div></div>
+        <div class="stat"><div class="k">▼ Spent this month</div><div class="v" id="hExp">-</div></div>
       </div>
     </div>
 
@@ -225,9 +225,9 @@
     <div class="sec-title">This month at a glance</div>
     <div class="card">
       <div class="kpi">
-        <div class="b"><div class="k">Budgeted</div><div class="v" id="bTotBud">—</div></div>
-        <div class="b"><div class="k">Spent</div><div class="v" id="bTotSpent">—</div></div>
-        <div class="b"><div class="k">Left</div><div class="v" id="bTotLeft">—</div></div>
+        <div class="b"><div class="k">Budgeted</div><div class="v" id="bTotBud">-</div></div>
+        <div class="b"><div class="k">Spent</div><div class="v" id="bTotSpent">-</div></div>
+        <div class="b"><div class="k">Left</div><div class="v" id="bTotLeft">-</div></div>
       </div>
     </div>
   </section>
@@ -366,7 +366,7 @@
     <h3 id="acctSheetTitle">Account</h3>
     <label class="fld"><span>Account name</span><input id="aName"></label>
     <label class="fld"><span>Balance right now</span><input id="aBal" inputmode="decimal"></label>
-    <p class="small muted" style="margin-top:0">Type the money actually in this account. Sente records the difference as a ⚖️ balance adjustment — it won't count as income or spending.</p>
+    <p class="small muted" style="margin-top:0">Type the money actually in this account. Sente records the difference as a ⚖️ balance adjustment - it won't count as income or spending.</p>
     <div class="btnrow">
       <button class="btn ghost" id="acctCancel">Cancel</button>
       <button class="btn" id="acctSave">Save</button>
@@ -417,7 +417,7 @@ function load(){
   s.txns = s.txns || []; s.budgets = s.budgets || {};
   s.settings = s.settings || {cur:'UGX', pos:'before'};
   s.accounts = s.accounts && s.accounts.length ? s.accounts : structuredClone(DEFAULT_ACCOUNTS);
-  // migrate: older transactions had no account — assign them to the first account
+  // migrate: older transactions had no account - assign them to the first account
   const firstAcct = s.accounts[0].id;
   s.txns.forEach(t=>{ if(t.type!=='transfer' && !t.acct) t.acct = firstAcct; });
   return s;
@@ -442,7 +442,7 @@ function monthTotals(mk){
   txnsForMonth(mk).forEach(t=>{
     if(t.type==='income') inc+=t.amount;
     else if(t.type==='expense') exp+=t.amount;
-    // transfers move money between accounts — not income, not spending
+    // transfers move money between accounts - not income, not spending
   });
   return {inc, exp, bal: inc-exp};
 }
@@ -499,7 +499,7 @@ function renderHome(mk){
   $('#hInc').textContent = money(inc);
   $('#hExp').textContent = money(exp);
 
-  // accounts — the harmonized view; tap a row to rename or set the real balance
+  // accounts - the harmonized view; tap a row to rename or set the real balance
   $('#acctList').innerHTML = state.accounts.map(a=>{
     const b=acctBalance(a.id);
     return `<div class="txn" data-acct="${a.id}">
@@ -520,7 +520,7 @@ function renderHome(mk){
   $('#savLine').textContent = inc>0 ? `You're keeping ${rate}% of your income` : 'No income logged yet';
   $('#savHint').textContent =
     inc<=0 ? 'Add your income to see your savings rate.' :
-    rate>=20 ? 'Great — 20%+ is a healthy savings habit. 👏' :
+    rate>=20 ? 'Great - 20%+ is a healthy savings habit. 👏' :
     rate>0 ? 'You spent most of what you earned. Try trimming one category.' :
     'You spent more than you earned this month.';
 
@@ -720,7 +720,7 @@ function renderMore(){
         if(t.to===id) t.to=target.id;
       }else if(t.acct===id) t.acct=target.id;
     });
-    // a transfer that now points at itself is meaningless — drop it
+    // a transfer that now points at itself is meaningless - drop it
     state.txns=state.txns.filter(t=> !(t.type==='transfer' && t.from===t.to));
     state.accounts=state.accounts.filter(x=>x.id!==id);
     save(); renderAll(); toast('Account removed');
@@ -753,7 +753,7 @@ function openTxn(id){
   if(id){
     const t=state.txns.find(x=>x.id===id); if(!t) return;
     if(t.type==='adjust'){
-      // adjustments are corrections, not entries — offer delete only
+      // adjustments are corrections, not entries - offer delete only
       if(confirm(`Balance adjustment (${signedMoney(t.amount)}) on ${acctById(t.acct).name}. Delete it?`)){
         state.txns=state.txns.filter(x=>x.id!==t.id); save(); renderAll(); toast('Deleted');
       }
