@@ -316,3 +316,21 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .minor-card b{display:block;color:var(--ink);font-size:16px;font-family:var(--f-display)}
 .minor-card small{display:block;color:var(--ink2);font-size:13.5px;margin:5px 0 9px;line-height:1.5}
 @media(max-width:700px){.minor{grid-template-columns:1fr}}
+
+/* ---- Compact feature tiles (SBM) ---- */
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.tile{border:1px solid var(--line);border-radius:12px;background:#fff;padding:0;transition:border-color .2s ease,box-shadow .2s ease}
+.tile[open]{border-color:var(--surface);box-shadow:0 10px 24px rgba(11,60,73,.12)}
+.tile summary{list-style:none;cursor:pointer;padding:13px 14px;display:block;position:relative}
+.tile summary::-webkit-details-marker{display:none}
+.tile summary::after{content:"+";position:absolute;top:11px;right:12px;color:var(--muted);font-size:16px;font-weight:700;line-height:1}
+.tile[open] summary::after{content:"–"}
+.tile .ti{font-size:19px;display:block;line-height:1.1;margin-bottom:5px}
+.tile b{display:block;font-family:var(--f-display);font-size:14.5px;color:var(--ink);line-height:1.25;padding-right:14px}
+.tile small{display:block;color:var(--muted);font-size:12.5px;margin-top:3px}
+.tile p{margin:0;padding:0 14px 13px;color:var(--ink2);font-size:14px;line-height:1.55}
+.tile:hover{border-color:var(--surface)}
+.tiles-cta{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin-top:18px}
+.tiles-cta span{color:var(--muted);font-size:14px}
+@media(max-width:860px){.tiles{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:640px){.tiles{grid-template-columns:repeat(2,1fr);gap:8px}.tile b{font-size:13.5px}}
