@@ -243,3 +243,16 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .wa-float:hover{transform:scale(1.07)}
 @media (prefers-reduced-motion: reduce){.skfloat,.skfloat2,.wa-float{animation:none}}
 @media (max-width:700px){.hero-visual{max-width:min(92vw,360px)}.hero-visual .phone{display:none}.tilltoast{left:0;max-width:230px}}
+
+/* ---- Real-screenshot showcase (2026-08-10) ---- */
+.shotband{background:linear-gradient(180deg,#0B3C49 0%,#10657A 100%);color:#fff;padding:56px 0}
+.shotband .sec-head h2{color:#fff}
+.shotband .sec-head p{color:#c8e2ea}
+.shotband .eyebrow{color:#7fcbe0}
+.shot-desk{max-width:820px;margin:0 auto 26px;border-radius:14px;overflow:hidden;box-shadow:0 22px 50px rgba(0,0,0,.42);display:block;width:100%}
+.shot-strip{display:flex;gap:16px;overflow-x:auto;padding:4px 2px 14px;scroll-snap-type:x mandatory;justify-content:center;align-items:flex-start}
+.shot-strip figure{margin:0;flex:0 0 auto;width:190px;scroll-snap-align:center;text-align:center}
+.shot-strip img{width:100%;height:300px;object-fit:cover;object-position:top center;border-radius:16px;display:block;box-shadow:0 16px 36px rgba(0,0,0,.42);background:#0B3C49}
+.shot-strip figcaption{margin-top:9px;font-size:13px;color:#c8e2ea;font-weight:600}
+.shotnote{text-align:center;color:#9fc4cf;font-size:13.5px;margin-top:6px}
+@media(max-width:700px){.shot-strip{justify-content:flex-start}.shot-strip figure{width:158px}.shot-strip img{height:250px}}
