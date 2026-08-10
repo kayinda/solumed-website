@@ -85,6 +85,51 @@
     setInterval(showToast, 4600);
   }
 
+  /* ---- Screenshot carousel: one screen at a time ---- */
+  var stage = document.getElementById("shotStage");
+  if (stage) {
+    var slides = [].slice.call(stage.querySelectorAll("figure"));
+    var dotwrap = document.getElementById("shotDots");
+    var cur = 0, timer = null;
+
+    slides.forEach(function (s, i) {
+      if (!dotwrap) return;
+      var b = document.createElement("button");
+      b.type = "button";
+      b.setAttribute("aria-label", "Show screen " + (i + 1));
+      if (i === 0) b.className = "on";
+      b.addEventListener("click", function () { go(i); restart(); });
+      dotwrap.appendChild(b);
+    });
+    var dots = dotwrap ? [].slice.call(dotwrap.children) : [];
+
+    function go(n) {
+      if (n === cur) return;
+      var prev = slides[cur];
+      prev.classList.remove("on");
+      prev.classList.add("out");
+      setTimeout(function () { prev.classList.remove("out"); }, 650);
+      cur = (n + slides.length) % slides.length;
+      slides[cur].classList.add("on");
+      dots.forEach(function (d, i) { d.className = i === cur ? "on" : ""; });
+    }
+    function next() { go((cur + 1) % slides.length); }
+    function restart() {
+      clearInterval(timer);
+      if (!reduced) timer = setInterval(next, 3400);
+    }
+    // Only run while the section is actually on screen.
+    if ("IntersectionObserver" in window) {
+      new IntersectionObserver(function (es) {
+        es.forEach(function (e) { e.isIntersecting ? restart() : clearInterval(timer); });
+      }, { threshold: 0.25 }).observe(stage);
+    } else {
+      restart();
+    }
+    stage.addEventListener("mouseenter", function () { clearInterval(timer); });
+    stage.addEventListener("mouseleave", restart);
+  }
+
   /* ---- Rotating message bar ---- */
   var bar = document.querySelector("[data-msgs]");
   if (bar) {
