@@ -58,11 +58,11 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--charcoal)}
 
 /* ---- hero ---- */
 .hero{background:var(--surface);color:#fff}
-.hero .wrap{padding:46px 24px 52px;text-align:center}
+.hero .wrap{padding:44px 24px 36px;text-align:center}
 .hero .badge{display:none}
-.hero h1{color:#fff;font-size:clamp(29px,4vw,42px);letter-spacing:-.3px;margin:0 auto;max-width:24ch}
+.hero h1{color:#fff;font-size:clamp(30px,4.2vw,46px);letter-spacing:-.3px;margin:0 auto;max-width:26ch}
 .hero .tagline{color:#d6ecf2;font-weight:600;font-size:clamp(14px,1.8vw,16px);margin-top:10px}
-.hero .sub{color:#eaf4f7;font-size:15.5px;margin:12px auto 0;max-width:60ch;line-height:1.6}
+.hero .sub{color:#eaf4f7;font-size:17px;margin:14px auto 0;max-width:72ch;line-height:1.65}
 .hero .cta-row{display:flex;gap:10px;flex-wrap:wrap;margin-top:22px;justify-content:center}
 .hero .btn-orange{background:#fff;color:var(--charcoal)}
 .hero .btn-orange:hover{background:#e6f1f4}
@@ -294,8 +294,10 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 @media(max-width:520px){.collage{min-height:290px}.col-main{height:145px;width:82%}.col-phone{height:186px;width:44%;right:4px}}
 
 /* ---- Moving ticker under the hero ---- */
-.ticker{position:relative;z-index:3;overflow:hidden;background:rgba(0,0,0,.28);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);padding:11px 0;margin-top:34px;margin-bottom:46px}
+.ticker{position:relative;z-index:3;overflow:hidden;background:rgba(0,0,0,.28);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);padding:11px 0;margin-top:22px;margin-bottom:26px}
 .ticker-run{display:flex;gap:0;width:max-content;animation:tickrun 34s linear infinite}
+.ticker-run.rev{animation-direction:reverse}
+.founder .ticker{margin:34px 0 -44px;background:rgba(255,255,255,.06)}
 .ticker-run span{color:#cfe6ee;font-size:13.5px;font-weight:600;letter-spacing:.02em;padding:0 26px;white-space:nowrap;position:relative}
 .ticker-run span::after{content:"";position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#e8a54b;opacity:.75}
 @keyframes tickrun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
