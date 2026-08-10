@@ -68,7 +68,7 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--charcoal)}
 .hero .btn-orange:hover{background:#e6f1f4}
 .hero .btn-ghost{background:transparent;color:#fff;border-color:#fff}
 .hero .btn-ghost:hover{background:rgba(255,255,255,.12)}
-.hero.compact .wrap{padding:34px 24px 38px}
+.hero.compact .wrap{padding:26px 24px 28px}
 .hero.compact h1{font-size:clamp(26px,3.6vw,36px)}
 /* split hero (text + phone mockup) */
 .hero-split{display:grid;grid-template-columns:1.05fr .95fr;gap:40px;align-items:center;text-align:left}
@@ -79,9 +79,9 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--charcoal)}
 }
 
 /* ---- sections ---- */
-section{padding:42px 0}
+section{padding:32px 0}
 section.alt{background:var(--tint)}
-.sec-head{max-width:64ch;margin:0 auto 22px;text-align:center}
+.sec-head{max-width:64ch;margin:0 auto 16px;text-align:center}
 .sec-head h2{font-size:clamp(23px,3vw,30px);margin-top:0;color:var(--charcoal)}
 .sec-head p{color:var(--ink2);margin:10px 0 0;font-size:15.5px}
 details.tuck{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 18px;margin-top:14px}
@@ -245,7 +245,7 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 @media (max-width:700px){.hero-visual{max-width:min(92vw,360px)}.hero-visual .phone{display:none}.tilltoast{left:0;max-width:230px}}
 
 /* ---- Real-screenshot showcase (2026-08-10) ---- */
-.shotband{background:linear-gradient(180deg,#0B3C49 0%,#10657A 100%);color:#fff;padding:56px 0}
+.shotband{background:linear-gradient(180deg,#0B3C49 0%,#10657A 100%);color:#fff;padding:38px 0}
 .shotband .sec-head h2{color:#fff}
 .shotband .sec-head p{color:#c8e2ea}
 .shotband .eyebrow{color:#7fcbe0}
@@ -270,7 +270,7 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 @media(max-width:700px){.fleet{grid-template-columns:1fr}.fleet img{height:220px}}
 
 /* ---- Founder band ---- */
-.founder{background:var(--charcoal);color:#fff;padding:44px 0}
+.founder{background:var(--charcoal);color:#fff;padding:34px 0}
 .founder .wrap{max-width:720px;text-align:center}
 .founder-photo{position:relative;width:56px;height:56px;border-radius:50%;overflow:hidden;margin:0 auto 16px;border:2px solid rgba(232,165,75,.7);box-shadow:0 6px 16px rgba(0,0,0,.4);isolation:isolate}
 .founder-photo img{width:100%;height:100%;object-fit:cover;object-position:center 20%;display:block;filter:grayscale(.85) contrast(1.18) brightness(1.02)}
@@ -297,7 +297,7 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .ticker{position:relative;z-index:3;overflow:hidden;background:rgba(0,0,0,.28);border-top:1px solid rgba(255,255,255,.1);border-bottom:1px solid rgba(255,255,255,.1);padding:11px 0;margin-top:22px;margin-bottom:26px}
 .ticker-run{display:flex;gap:0;width:max-content;animation:tickrun 34s linear infinite}
 .ticker-run.rev{animation-direction:reverse}
-.founder .ticker{margin:34px 0 -44px;background:rgba(255,255,255,.06)}
+.founder .ticker{margin:26px 0 -34px;background:rgba(255,255,255,.06)}
 .ticker-run span{color:#cfe6ee;font-size:13.5px;font-weight:600;letter-spacing:.02em;padding:0 26px;white-space:nowrap;position:relative}
 .ticker-run span::after{content:"";position:absolute;right:-3px;top:50%;transform:translateY(-50%);width:5px;height:5px;border-radius:50%;background:#e8a54b;opacity:.75}
 @keyframes tickrun{from{transform:translateX(0)}to{transform:translateX(-50%)}}
@@ -334,3 +334,12 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .tiles-cta span{color:var(--muted);font-size:14px}
 @media(max-width:860px){.tiles{grid-template-columns:repeat(3,1fr)}}
 @media(max-width:640px){.tiles{grid-template-columns:repeat(2,1fr);gap:8px}.tile b{font-size:13.5px}}
+
+/* ---- Hero pillar chips (landing click paths) ---- */
+.pillar-chips{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin-top:26px}
+.pillar-chips a{display:block;min-width:180px;text-align:left;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.22);border-radius:13px;padding:12px 16px;transition:background .2s ease,transform .2s ease,border-color .2s ease}
+.pillar-chips a:hover{background:rgba(255,255,255,.14);border-color:rgba(255,255,255,.5);transform:translateY(-2px)}
+.pillar-chips span{font-size:18px;margin-right:8px}
+.pillar-chips b{color:#fff;font-family:var(--f-display);font-size:15px}
+.pillar-chips small{display:block;color:#b9d9e2;font-size:12.5px;margin-top:3px}
+@media(max-width:700px){.pillar-chips a{min-width:0;flex:1 1 100%;text-align:center}}
