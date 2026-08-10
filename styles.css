@@ -216,7 +216,7 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .price-table td.amt{text-align:right;color:var(--orange);font-weight:700;white-space:nowrap;font-family:var(--f-display)}
 
 /* ---- Motion (added 2026-08-10): reveals, live bar, pulse ---- */
-.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.rv{opacity:0;transform:translateY(30px);transition:opacity .7s cubic-bezier(.2,.7,.3,1),transform .7s cubic-bezier(.2,.7,.3,1)}
 .rv.in{opacity:1;transform:none}
 .rotbar{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);font-size:14px;color:#dff0f5;max-width:100%}
 .rotbar .rotmsg{transition:opacity .35s ease;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -224,3 +224,22 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .livedot{width:8px;height:8px;border-radius:50%;background:#39d98a;flex:none;animation:ldpulse 1.6s ease-in-out infinite}
 @keyframes ldpulse{0%,100%{box-shadow:0 0 0 0 rgba(57,217,138,.55)}55%{box-shadow:0 0 0 7px rgba(57,217,138,0)}}
 @media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}.livedot{animation:none}}
+
+/* ---- Hero life (2026-08-10): illustration, till toasts, WhatsApp float, curve ---- */
+.hero{position:relative;overflow:hidden}
+.hero-visual{position:relative;margin:0 auto;max-width:480px}
+.hero-visual .shopkeeper{width:100%;height:auto;display:block}
+.hero-visual .phone{position:absolute;right:-6px;bottom:24px;width:190px;box-shadow:0 18px 40px rgba(0,0,0,.35)}
+.skfloat{animation:skbob 5s ease-in-out infinite}
+.skfloat2{animation:skbob 6.5s ease-in-out infinite reverse}
+@keyframes skbob{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+.tilltoast{position:absolute;left:-10px;bottom:6px;display:flex;gap:10px;align-items:center;background:#fff;color:var(--ink);border-radius:14px;padding:10px 14px;font-size:13.5px;font-weight:600;box-shadow:0 14px 34px rgba(0,0,0,.28);opacity:0;transform:translateY(22px);transition:opacity .5s ease,transform .5s ease;max-width:270px;pointer-events:none}
+.tilltoast.show{opacity:1;transform:none}
+.tilltoast .tico{font-size:20px;flex:none}
+.tilltoast small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:1px}
+.herocurve{position:absolute;left:0;right:0;bottom:-1px;width:100%;height:44px;display:block;pointer-events:none}
+.wa-float{position:fixed;right:18px;bottom:18px;z-index:60;width:56px;height:56px;border-radius:50%;background:#25D366;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 26px rgba(0,0,0,.30);animation:ldpulse 2.2s ease-in-out infinite}
+.wa-float svg{width:30px;height:30px;fill:#fff}
+.wa-float:hover{transform:scale(1.07)}
+@media (prefers-reduced-motion: reduce){.skfloat,.skfloat2,.wa-float{animation:none}}
+@media (max-width:700px){.hero-visual{max-width:min(92vw,360px)}.hero-visual .phone{display:none}.tilltoast{left:0;max-width:230px}}
