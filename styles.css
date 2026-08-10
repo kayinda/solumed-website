@@ -343,3 +343,6 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .pillar-chips b{color:#fff;font-family:var(--f-display);font-size:15px}
 .pillar-chips small{display:block;color:#b9d9e2;font-size:12.5px;margin-top:3px}
 @media(max-width:700px){.pillar-chips a{min-width:0;flex:1 1 100%;text-align:center}}
+
+.minor-card .minor-link{display:block}
+.minor-card .subbtn{margin-top:10px;font-size:13px;padding:8px 14px}
