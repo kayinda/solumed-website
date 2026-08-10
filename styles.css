@@ -214,3 +214,13 @@ footer.foot h4{color:#fff;font-size:13px;letter-spacing:.1em;text-transform:uppe
 .price-table th,.price-table td{text-align:left;padding:13px 10px;border-bottom:1px solid var(--line)}
 .price-table th{font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:700}
 .price-table td.amt{text-align:right;color:var(--orange);font-weight:700;white-space:nowrap;font-family:var(--f-display)}
+
+/* ---- Motion (added 2026-08-10): reveals, live bar, pulse ---- */
+.rv{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease}
+.rv.in{opacity:1;transform:none}
+.rotbar{display:inline-flex;align-items:center;gap:9px;margin-top:14px;padding:8px 16px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.16);font-size:14px;color:#dff0f5;max-width:100%}
+.rotbar .rotmsg{transition:opacity .35s ease;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.rotbar .rotmsg.fade{opacity:0}
+.livedot{width:8px;height:8px;border-radius:50%;background:#39d98a;flex:none;animation:ldpulse 1.6s ease-in-out infinite}
+@keyframes ldpulse{0%,100%{box-shadow:0 0 0 0 rgba(57,217,138,.55)}55%{box-shadow:0 0 0 7px rgba(57,217,138,0)}}
+@media (prefers-reduced-motion: reduce){.rv{opacity:1;transform:none;transition:none}.livedot{animation:none}}
