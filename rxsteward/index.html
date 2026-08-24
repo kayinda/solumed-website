@@ -107,6 +107,7 @@
   .b-A{background:#D1FAE5; color:#065F46;} .b-W{background:#FEF3C7; color:#92400E;} .b-R{background:#FEE2E2; color:#991B1B;}
   .drug .dd{font-size:.85rem; color:#374151; margin-top:4px; line-height:1.5;}
   .drug .dd .paed{background:#FEF7E6; border-radius:4px; padding:0 3px; font-weight:600;}
+  .drug .dd .foreign-dose{color:#8a5a00; font-style:italic;}
   .drug .rl{font-size:.78rem; color:#4B5563; margin-top:7px; padding-top:6px; border-top:1px solid #EEF2F7; display:flex; flex-wrap:wrap; gap:4px 12px;}
 
   details.panel{border:1px solid var(--line); border-radius:9px; margin:8px 0; overflow:hidden;}
@@ -274,9 +275,31 @@ function esc(s){ return String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;',
 function shortOrg(p){ let s=p.split("(")[0].split("—")[0].trim(); const w=s.split(" ");
   if(w.length>=2&&s.length>20) s=w[0][0]+". "+w.slice(1).join(" "); return s.length>26?s.slice(0,25)+"…":s; }
 function shortDrug(d){ return d.replace("Piperacillin-tazobactam","Pip-tazo").replace("Ceftazidime-avibactam","Ceftaz-avi").replace("-clavulanate","-clav").replace("Amoxicillin","Amox").replace("Co-trimoxazole","Co-trim").replace("Nitrofurantoin","Nitrofur.").replace("Ciprofloxacin","Cipro").replace("Levofloxacin","Levoflox").replace("Ceftriaxone","Ceftriax").replace("Ceftazidime","Ceftaz").replace("Gentamicin","Gentam").replace("Chloramphenicol","Chloramp").replace("Fosfomycin","Fosfo").replace("Imipenem","Imipen").replace("Meropenem","Merop").replace("Cefepime","Cefep").replace("Amikacin","Amikac").replace("Ampicillin","Ampi").replace("Azithromycin","Azithro").replace("Doxycycline","Doxy").replace("Vancomycin","Vanco").replace("Benzylpenicillin","Benzylpen").replace("Clindamycin","Clinda"); }
-function doseHtml(dose, paedMode){ let h=esc(dose);
-  if(paedMode){ h=h.replace(/(Paed[^•]*)(•|$)/g,(m,a,b)=>'<span class="paed">'+a.trim()+'</span> '+b); }
-  return h; }
+function splitDoseForTab(dose, paedMode){
+  const s=dose;
+  const ai=s.search(/Adult\s*:/);
+  const pi=s.search(/Paeds?\s*:/);
+  if(ai<0&&pi<0) return {text:s, foreign:false};      // no age split - applies to all
+  const refm=s.match(/\s*(\[[^\]]*\])\s*$/);        // shared trailing [reference]
+  const ref=refm?"  "+refm[1]:"";
+  const core=refm?s.slice(0,refm.index):s;
+  const clean=t=>t.replace(/^[\s•]+|[\s•]+$/g,"");
+  let adult=null, paed=null;
+  if(ai>=0&&pi>=0){ adult=clean(core.slice(ai,pi)); paed=clean(core.slice(pi)); }
+  else if(ai>=0){ adult=clean(core.slice(ai)); }
+  else { paed=clean(core.slice(pi)); }
+  if(paedMode) return paed?{text:paed+ref,foreign:false}:{text:adult+ref,foreign:true};
+  return adult?{text:adult+ref,foreign:false}:{text:paed+ref,foreign:true};
+}
+function doseHtml(dose, paedMode){
+  const r=splitDoseForTab(dose, paedMode);
+  const h=esc(r.text);
+  if(r.foreign){
+    return '<span class="foreign-dose">⚠ '+(paedMode
+      ?'No paediatric dose listed - adult dosing shown, verify before prescribing: '
+      :'Paediatric-only regimen: ')+h+'</span>';
+  }
+  return paedMode?'<span class="paed">'+h+'</span>':h; }
 
 /* ---------- state + routing ---------- */
 let tab="adult", scope="Uganda", currentSyn=null, amrSub="lib", facility=loadFacility();
