@@ -16,130 +16,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-:root{
-  --teal:#10657A; --teal-deep:#0E3D4D; --teal-ink:#0A2E3A;
-  --amber:#E8A54B; --amber-deep:#D18F35;
-  --ink:#152430; --ink2:#4A5B66;
-  --bg:#F4F8F9; --line:#E2EBEE; --white:#ffffff;
-}
-*{margin:0;padding:0;box-sizing:border-box}
-html{scroll-behavior:smooth}
-body{font-family:'Inter',system-ui,sans-serif;color:var(--ink);background:var(--white);font-size:16px;line-height:1.6}
-h1,h2,h3,h4{font-family:'Poppins',sans-serif;line-height:1.2}
-a{text-decoration:none;color:inherit}
-img{max-width:100%}
-.wrap{max-width:1140px;margin:0 auto;padding:0 22px}
-
-/* NAV */
-.nav{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--line)}
-.nav-inner{max-width:1140px;margin:0 auto;padding:12px 22px;display:flex;align-items:center;gap:18px}
-.brand{display:flex;align-items:center;gap:10px}
-.logo{width:40px;height:40px;border-radius:50%;background:var(--teal-deep);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800;font-family:'Poppins',sans-serif;font-size:15px}
-.brand b{font-family:'Poppins',sans-serif;font-size:16px;letter-spacing:.4px;color:var(--teal-ink)}
-.brand small{display:block;font-size:10.5px;color:var(--ink2);letter-spacing:.2px}
-.nav-links{margin-left:auto;display:flex;align-items:center;gap:26px;font-size:14.5px;font-weight:500;color:var(--ink2)}
-.nav-links a:hover{color:var(--teal)}
-.nav-cta{background:var(--amber);color:#fff !important;padding:9px 20px;border-radius:999px;font-weight:600}
-.nav-cta:hover{background:var(--amber-deep)}
-.menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;font-size:20px;padding:4px 10px;cursor:pointer;color:var(--ink)}
-
-/* HERO */
-.hero{background:var(--teal-deep);color:#fff;padding:76px 0 150px;text-align:center}
-.hero h1{font-size:52px;font-weight:800;letter-spacing:-.5px}
-.hero h1 .accent{color:var(--amber)}
-.hero .sub{margin:22px auto 30px;font-size:17px;color:#C9DDE3;max-width:640px}
-.btn{display:inline-flex;align-items:center;gap:8px;padding:13px 28px;border-radius:999px;font-weight:600;font-size:15px;transition:.15s}
-.btn-amber{background:var(--amber);color:#fff}
-.btn-amber:hover{background:var(--amber-deep)}
-.btn-outline{border:1.5px solid #7FB6C4;color:#DCEDF1}
-.btn-outline:hover{border-color:#fff;color:#fff}
-.cta-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
-
-/* overlap cards */
-.overlap{margin-top:-96px;position:relative;z-index:5}
-.olap-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.ocard{background:var(--white);border-radius:16px;padding:30px 26px;box-shadow:0 12px 30px rgba(10,46,58,.10);border:1px solid var(--line);text-align:center;display:block;transition:.15s}
-.ocard:hover{transform:translateY(-3px)}
-.ocard h3{color:var(--teal);font-size:14px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
-.ocard p{color:var(--ink2);font-size:14.5px}
-.ocard .arr{display:inline-block;margin-top:14px;color:var(--amber);font-size:20px;font-weight:700}
-
-/* sections */
-section{padding:76px 0}
-.sec-head{text-align:center;max-width:720px;margin:0 auto 46px}
-.sec-head h2{font-size:32px;color:var(--teal-ink)}
-.sec-head p{margin-top:14px;color:var(--ink2)}
-.alt{background:var(--bg)}
-
-/* divisions */
-.div-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
-.dcard{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:32px 28px;box-shadow:0 8px 24px rgba(10,46,58,.06);display:flex;flex-direction:column}
-.dcard .di{font-size:30px}
-.dcard h3{margin:14px 0 10px;font-size:20px;color:var(--teal-ink)}
-.dcard p{color:var(--ink2);font-size:14.5px;flex:1}
-.dcard .status{display:inline-block;margin:14px 0 16px;font-size:12.5px;font-weight:600;color:#1C7C4A}
-.dcard .links{display:flex;gap:10px;flex-wrap:wrap}
-.btn-teal{background:var(--teal);color:#fff;padding:10px 20px;font-size:14px}
-.btn-teal:hover{background:var(--teal-deep)}
-.btn-dark{background:var(--teal-ink);color:#fff;padding:10px 20px;font-size:14px}
-.btn-dark:hover{background:#000}
-
-/* values */
-.val-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
-.vcard{background:var(--white);border-radius:16px;padding:28px 24px;border:1px solid var(--line);text-align:center}
-.vcard .vi{width:52px;height:52px;margin:0 auto 14px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:22px}
-.vcard h4{font-size:16.5px;color:var(--teal-ink);margin-bottom:8px}
-.vcard p{font-size:13.5px;color:var(--ink2)}
-
-/* about */
-.tuck{border:1px solid var(--line);border-radius:14px;background:var(--white);margin-top:18px;overflow:hidden}
-.tuck summary{cursor:pointer;padding:18px 22px;font-weight:600;color:var(--teal-ink);list-style:none}
-.tuck summary::before{content:"+";display:inline-block;margin-right:12px;color:var(--amber);font-weight:700}
-.tuck[open] summary::before{content:"–"}
-.tuck > div{padding:0 22px 22px}
-.grid.two{display:grid;grid-template-columns:1fr 1fr;gap:26px}
-.card{background:var(--white);border:1px solid var(--line);border-radius:14px;padding:24px}
-.card-dark{background:var(--teal-ink);color:#DCEDF1;border:none}
-.card-dark h3{color:#fff}
-.info{background:var(--bg);border-radius:12px;padding:16px 18px}
-.team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.avatar{width:52px;height:52px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px}
-.team h4{font-size:16px;color:var(--teal-ink)}
-.role{font-size:13px;color:var(--amber-deep);font-weight:600;margin:4px 0 8px}
-.bio{font-size:13.5px;color:var(--ink2)}
-
-/* contact */
-.chips{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-bottom:26px}
-.chip{background:var(--white);border:1px solid var(--line);border-radius:999px;padding:9px 18px;font-size:13.5px;font-weight:600;color:var(--teal-ink)}
-a.chip:hover{border-color:var(--teal);color:var(--teal)}
-.form{display:flex;flex-direction:column;gap:10px}
-.form label{font-size:13.5px;font-weight:600;color:var(--teal-ink)}
-.form input,.form select,.form textarea{padding:12px 14px;border:1px solid var(--line);border-radius:10px;font:inherit;font-size:14.5px;background:var(--white)}
-.form input:focus,.form select:focus,.form textarea:focus{outline:2px solid var(--teal);border-color:var(--teal)}
-.form button{border:none;cursor:pointer;justify-content:center}
-
-/* footer */
-.foot{background:var(--teal-ink);color:#B9CFD7;padding:56px 0 0;font-size:14px}
-.foot .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padding-bottom:36px}
-.foot h4{color:#fff;font-size:15px;margin-bottom:14px}
-.foot a{display:block;margin-bottom:9px}
-.foot a:hover{color:#fff}
-.foot .tag{color:var(--amber);font-weight:600;font-size:13px}
-.foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 22px;text-align:center;font-size:12.5px;color:#8FA9B3}
-
-@media(max-width:900px){
-  .hero h1{font-size:38px}
-  .hero-grid{grid-template-columns:1fr;gap:36px}
-  .float-stack{min-height:360px}
-  .olap-grid,.div-grid,.team,.grid.two{grid-template-columns:1fr}
-  .val-grid{grid-template-columns:1fr 1fr}
-  .foot .wrap{grid-template-columns:1fr}
-  .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);flex-direction:column;align-items:flex-start;padding:18px 22px;gap:16px;border-bottom:1px solid var(--line)}
-  .nav-links.open{display:flex}
-  .menu-btn{display:block}
-}
-</style>
+<link rel="stylesheet" href="site.css?v=20260830">
 </head>
 <body>
 
@@ -209,7 +86,7 @@ a.chip:hover{border-color:var(--teal);color:var(--teal)}
       <div class="dcard">
         <span class="di">🚚</span>
         <h3>Supply &amp; Logistics</h3>
-        <p>Pharmaceutical and general supply, procurement, tendering, transport and last-mile delivery across Uganda. NDA-licensed for pharmaceutical and medical-product distribution.</p>
+        <p>Pharmaceutical and general supply, procurement, tendering, transport and last-mile delivery across Uganda. NDA licence for pharmaceutical and medical-product distribution in progress.</p>
         <span class="status">● Active, invite us to bid</span>
         <div class="links"><a class="btn btn-teal" href="logistics.html">Supply &amp; logistics →</a><a class="btn btn-dark" href="#contact">Invite us to bid</a></div>
       </div>
@@ -257,7 +134,7 @@ a.chip:hover{border-color:var(--teal);color:var(--teal)}
           <p style="color:var(--ink2)">Solumed Plus Limited supplies and delivers goods of all kinds, develops scalable business software, runs a health-technology research &amp; innovation arm, and provides reliable logistics across Uganda and beyond.</p>
           <div class="info" style="margin-top:20px">
             <strong>What we are registered to do</strong>
-            <p style="margin:6px 0 0;color:var(--ink2);font-size:14.5px">Health &amp; clinical software and decision-support tools · health informatics, AI and data-analytics research · health &amp; AMR consulting, M&amp;E and scientific writing · pharmaceutical and medical-product distribution (NDA-licensed) · general supply, procurement and tendering · transport &amp; logistics.</p>
+            <p style="margin:6px 0 0;color:var(--ink2);font-size:14.5px">Health &amp; clinical software and decision-support tools · health informatics, AI and data-analytics research · health &amp; AMR consulting, M&amp;E and scientific writing · pharmaceutical and medical-product distribution (NDA licence in progress) · general supply, procurement and tendering · transport &amp; logistics.</p>
           </div>
         </div>
         <div class="card card-dark">
