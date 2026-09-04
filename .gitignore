@@ -7,8 +7,3 @@ downloads/*.dmg
 downloads/*.exe
 downloads/*.apk
 downloads/*.mp4
-
-# installers are uploaded straight to the server (3 TOOLS button 7)
-downloads/*.exe
-downloads/*.dmg
-downloads/*.apk
