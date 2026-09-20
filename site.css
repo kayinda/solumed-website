@@ -178,12 +178,6 @@ footer.foot b{font-family:var(--f-display)}
 .tilltoast .tico{font-size:20px;flex:none}
 .tilltoast small{display:block;font-weight:500;color:var(--muted);font-size:11.5px;margin-top:1px}
 
-/* ---- fleet photos (logistics) ---- */
-.fleet{display:grid;grid-template-columns:1.25fr 1fr;gap:16px;margin-bottom:14px}
-.fleet figure{margin:0}
-.fleet img{width:100%;height:270px;object-fit:cover;border-radius:14px;display:block;box-shadow:0 14px 32px rgba(10,46,58,.15)}
-.fleet figcaption{margin-top:8px;font-size:13.5px;color:var(--muted);font-weight:600}
-.fleetnote{color:var(--ink2);font-size:15px;margin:0 0 18px;text-align:center}
 
 /* ---- SBM: hero collage ---- */
 .collage{position:relative;width:100%;min-height:400px;margin-top:6px}
@@ -248,8 +242,6 @@ footer.foot b{font-family:var(--f-display)}
   .hero-split h1{font-size:36px}
   .olap-grid,.div-grid,.team,.grid.two,.grid.three,.till{grid-template-columns:1fr}
   .val-grid{grid-template-columns:1fr 1fr}
-  .fleet{grid-template-columns:1fr}
-  .fleet img{height:220px}
   .tiles{grid-template-columns:repeat(2,1fr);gap:8px}
   footer.foot .wrap{grid-template-columns:1fr}
   .nav-links{display:none;position:absolute;top:100%;left:0;right:0;background:var(--white);flex-direction:column;align-items:flex-start;padding:18px 22px;gap:16px;border-bottom:1px solid var(--line)}
