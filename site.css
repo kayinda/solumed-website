@@ -1,12 +1,13 @@
-/* Solumed Plus Limited - site-wide stylesheet (corporate redesign 2026-08)
-   Deep teal + amber on white. One design system for every page. */
+/* Solumed Plus Limited - site-wide stylesheet
+   Company colours: brand teal + charcoal on white, muted amber only as a
+   status accent. One design system for every page. */
 :root{
-  --teal:#10657A; --teal-deep:#0E3D4D; --teal-ink:#0A2E3A;
-  --amber:#E8A54B; --amber-deep:#D18F35;
-  --ink:#152430; --ink2:#4A5B66; --muted:#5C7176;
-  --bg:#F4F8F9; --tint:#F4F8F9; --line:#E2EBEE; --white:#ffffff;
-  --green:#1B8A5A;
-  --charcoal:#0A2E3A; --surface:#10657A; --orange:#10657A; --orange2:#0E3D4D;
+  --teal:#10657A; --teal-deep:#0B3C49; --teal-ink:#0B3C49;
+  --amber:#c07d29; --amber-deep:#a5691f;
+  --ink:#17323b; --ink2:#44606a; --muted:#5c7176;
+  --bg:#F2F7F8; --tint:#F2F7F8; --line:#d9e6ea; --white:#ffffff;
+  --green:#1b8a5a;
+  --charcoal:#0B3C49; --surface:#10657A; --orange:#10657A; --orange2:#0B3C49;
   --f-display:"Poppins",-apple-system,"Segoe UI",Roboto,sans-serif;
   --f-body:"Inter",-apple-system,"Segoe UI",Roboto,sans-serif;
 }
@@ -30,14 +31,16 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--white);border-bott
 .nav-links{margin-left:auto;display:flex;align-items:center;gap:22px;font-size:14.5px;font-weight:500;color:var(--ink2)}
 .nav-links a:hover{color:var(--teal)}
 .nav-links a.active{color:var(--teal);font-weight:700}
-.nav-cta{background:var(--amber);color:#fff !important;padding:9px 20px;border-radius:999px;font-weight:600}
-.nav-cta:hover{background:var(--amber-deep)}
+.nav-cta{background:var(--teal);color:#fff !important;padding:9px 20px;border-radius:999px;font-weight:600}
+.nav-cta:hover{background:var(--teal-deep)}
 .menu-btn{display:none;margin-left:auto;background:none;border:1px solid var(--line);border-radius:8px;font-size:20px;padding:4px 10px;cursor:pointer;color:var(--ink)}
 
 /* ---- buttons ---- */
 .btn{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:999px;font-weight:600;font-size:14.5px;transition:.15s;border:1.5px solid transparent;cursor:pointer;font-family:var(--f-body)}
-.btn-amber,.btn-orange{background:var(--amber);color:#fff}
-.btn-amber:hover,.btn-orange:hover{background:var(--amber-deep)}
+.btn-amber,.btn-orange{background:var(--teal);color:#fff}
+.btn-amber:hover,.btn-orange:hover{background:var(--teal-deep)}
+.hero .btn-amber,.hero .btn-orange{background:#fff;color:var(--teal-ink)}
+.hero .btn-amber:hover,.hero .btn-orange:hover{background:#e6f1f4}
 .btn-teal{background:var(--teal);color:#fff;padding:10px 20px;font-size:14px}
 .btn-teal:hover{background:var(--teal-deep)}
 .btn-dark{background:var(--teal-ink);color:#fff;padding:10px 20px;font-size:14px}
@@ -50,9 +53,8 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--white);border-bott
 /* ---- hero ---- */
 .hero{position:relative;background:var(--teal-deep);color:#fff;padding:76px 0 150px;text-align:center}
 .hero h1{color:#fff;font-size:52px;font-weight:800;letter-spacing:-.5px}
-.hero h1 .accent{color:var(--amber)}
+.hero h1 .accent{color:#9FD8E6}
 .hero .sub{margin:22px auto 30px;font-size:17px;color:#C9DDE3;max-width:640px}
-.hero .badge{display:inline-block;background:rgba(232,165,75,.16);border:1px solid rgba(232,165,75,.5);color:var(--amber);border-radius:999px;padding:6px 16px;font-size:12.5px;font-weight:700;letter-spacing:.6px;text-transform:uppercase;margin-bottom:18px}
 .hero .tagline{color:#DCEDF1;font-weight:600;font-size:17px;margin-top:12px}
 .cta-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center}
 .hero .btn-ghost{background:transparent;color:#DCEDF1;border-color:#7FB6C4}
@@ -74,7 +76,7 @@ header.nav{position:sticky;top:0;z-index:100;background:var(--white);border-bott
 .ocard:hover{transform:translateY(-3px)}
 .ocard h3{color:var(--teal);font-size:14px;letter-spacing:1.5px;text-transform:uppercase;margin-bottom:12px}
 .ocard p{color:var(--ink2);font-size:14.5px}
-.ocard .arr{display:inline-block;margin-top:14px;color:var(--amber);font-size:20px;font-weight:700}
+.ocard .arr{display:inline-block;margin-top:14px;color:var(--teal);font-size:20px;font-weight:700}
 
 /* ---- sections ---- */
 section{padding:64px 0}
@@ -104,7 +106,7 @@ section.alt{background:var(--bg)}
 .grid.two{grid-template-columns:1fr 1fr}
 .grid.three{grid-template-columns:repeat(3,1fr)}
 .card{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:26px;box-shadow:0 8px 24px rgba(10,46,58,.05)}
-.card.accent{border-top:4px solid var(--amber)}
+.card.accent{border-top:4px solid var(--teal)}
 .card .ic{font-size:26px;margin-bottom:12px;display:block}
 .card h3{font-size:19px;margin-bottom:8px}
 .card p{color:var(--ink2);margin:0 0 6px}
@@ -121,7 +123,7 @@ section.alt{background:var(--bg)}
 .s-live{background:#E3F2EA;color:#116B40}
 .s-dev{background:#F9EFDD;color:#8A5F10}
 .card-dark .s-live{background:rgba(57,217,138,.16);color:#7FE0B0}
-.card-dark .s-dev{background:rgba(232,165,75,.16);color:var(--amber)}
+.card-dark .s-dev{background:rgba(192,125,41,.18);color:#E3B06A}
 .pill{display:inline-block;background:var(--bg);color:var(--teal);border-radius:20px;padding:5px 14px;font-size:13px;font-weight:600;margin:3px 3px 3px 0}
 
 /* ---- info / tuck / team ---- */
@@ -131,13 +133,13 @@ section.alt .info{background:var(--white);border:1px solid var(--line)}
 details.tuck{border:1px solid var(--line);border-radius:14px;background:var(--white);margin-top:18px;overflow:hidden;padding:0}
 details.tuck summary{cursor:pointer;padding:18px 22px;font-weight:600;color:var(--teal-ink);list-style:none}
 details.tuck summary::-webkit-details-marker{display:none}
-details.tuck summary::before{content:"+";display:inline-block;margin-right:12px;color:var(--amber);font-weight:700}
+details.tuck summary::before{content:"+";display:inline-block;margin-right:12px;color:var(--teal);font-weight:700}
 details.tuck[open] summary::before{content:"\2013"}
 details.tuck > div{padding:0 22px 22px}
 .team{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
 .avatar{width:52px;height:52px;border-radius:50%;background:var(--teal);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:700;margin-bottom:12px;font-family:var(--f-display)}
 .team h4{font-size:16px}
-.team .role,.role{font-size:13px;color:var(--amber-deep);font-weight:600;margin:4px 0 8px}
+.team .role,.role{font-size:13px;color:var(--teal);font-weight:600;margin:4px 0 8px}
 .team .bio,.bio{font-size:13.5px;color:var(--ink2)}
 
 /* ---- contact ---- */
@@ -156,7 +158,7 @@ footer.foot .wrap{display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:36px;padd
 footer.foot h4{color:#fff;font-size:15px;margin-bottom:14px}
 footer.foot a{display:block;margin-bottom:9px}
 footer.foot a:hover{color:#fff}
-footer.foot .tag{color:var(--amber);font-weight:600;font-size:13px}
+footer.foot .tag{color:#7FB6C4;font-weight:600;font-size:13px}
 footer.foot b{font-family:var(--f-display)}
 .foot-bottom{border-top:1px solid rgba(255,255,255,.12);padding:18px 22px;text-align:center;font-size:12.5px;color:#8FA9B3}
 
@@ -211,7 +213,7 @@ footer.foot b{font-family:var(--f-display)}
 .panel h3{font-size:15px;font-family:var(--f-body);font-weight:600;color:var(--muted);margin-bottom:14px}
 .prod-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
 .prod{background:var(--bg);border:1px solid transparent;border-radius:12px;padding:12px;text-align:left;cursor:pointer;font-family:inherit;color:inherit}
-.prod:hover{border-color:var(--amber)}
+.prod:hover{border-color:var(--teal)}
 .prod .n{font-weight:600;font-size:14px;line-height:1.25;color:var(--ink)}
 .prod .p{color:var(--teal);font-size:13px;margin-top:6px;font-weight:600}
 .cart-lines{min-height:120px;display:flex;flex-direction:column;gap:8px;margin-bottom:14px}
@@ -219,7 +221,7 @@ footer.foot b{font-family:var(--f-display)}
 .line{display:flex;align-items:center;gap:8px;font-size:14px}
 .line .nm{flex:1}
 .qbtn{width:26px;height:26px;border-radius:50%;border:1px solid var(--line);background:var(--white);color:var(--ink);cursor:pointer;font-size:15px;line-height:1;font-family:inherit}
-.qbtn:hover{border-color:var(--amber)}
+.qbtn:hover{border-color:var(--teal)}
 .line .qn{min-width:20px;text-align:center;font-weight:600}
 .line .lt{min-width:74px;text-align:right;color:var(--muted);font-weight:600}
 .total-row{display:flex;justify-content:space-between;align-items:baseline;border-top:1px solid var(--line);padding-top:12px;margin-bottom:12px}
