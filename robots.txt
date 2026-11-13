@@ -1,0 +1,5 @@
+User-agent: *
+Allow: /
+Disallow: /rxsteward-partners-a2162184/
+
+Sitemap: https://solumedplus.com/sitemap.xml
