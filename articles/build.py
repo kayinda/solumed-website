@@ -15,7 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
 SITE = os.path.dirname(HERE)
 BASE = "https://solumedplus.com"
-CSS_VER = "20261117d"
+CSS_VER = "20261117e"
 
 
 # ---------- tiny Markdown reader (headings, lists, bold, italic, links) ----------
@@ -244,7 +244,7 @@ DISCLAIMER = ("This article is general health information, not medical advice. I
 
 # Likes and comments. The server side lives in the Solumed Online app (app.py:
 # /api/articles/<slug>, /like, /comment; moderation at /comments?key=ADMIN_TOKEN).
-# Comments only appear after they are approved. If the API is unreachable (for
+# Comments go live at once; commenters can edit or delete their own. If the API is unreachable (for
 # example in a local preview) the block says so and the article still works.
 REACT = """
       <section class="art-react" id="react" data-slug="__SLUG__">
@@ -263,8 +263,9 @@ REACT = """
           <label for="cText">Your comment</label>
           <textarea id="cText" name="text" rows="4" maxlength="2000" required></textarea>
           <div class="c-hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
-          <p class="c-rules">Comments are read before they appear. Please be respectful, and do not share
-            personal medical details: we cannot give individual medical advice here. Links are not allowed.</p>
+          <p class="c-rules">Please be respectful. Do not share personal medical details: we cannot give individual
+            medical advice here. Links are not allowed, and offensive comments are removed. You can edit or delete
+            your own comment later from this browser.</p>
           <button class="btn btn-orange" type="submit" id="cSend">Post comment</button>
           <p class="c-msg" id="cMsg" role="status"></p>
         </form>
@@ -272,11 +273,16 @@ REACT = """
       <script>
       (function(){
         var box=document.getElementById('react'); if(!box) return;
-        var slug=box.getAttribute('data-slug'), api='/api/articles/'+slug;
+        var slug=box.getAttribute('data-slug'), api='/api/articles/'+slug, KEY='solumed-comment-keys';
         var likeBtn=document.getElementById('likeBtn'), likeN=document.getElementById('likeN'),
             likeLabel=document.getElementById('likeLabel'), list=document.getElementById('cList'),
             count=document.getElementById('cCount'), form=document.getElementById('cForm'),
-            msg=document.getElementById('cMsg'), send=document.getElementById('cSend');
+            msg=document.getElementById('cMsg'), send=document.getElementById('cSend'), comments=[];
+        function keys(){ try{ return JSON.parse(localStorage.getItem(KEY)||'{}'); }catch(e){ return {}; } }
+        function saveKey(id,tok){ try{ var k=keys(); if(tok) k[id]=tok; else delete k[id]; localStorage.setItem(KEY,JSON.stringify(k)); }catch(e){} }
+        function post(url,data){ return fetch(url,{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data||{})})
+          .then(function(r){ return r.json(); }); }
+        function el(tag,cls,text){ var e=document.createElement(tag); if(cls) e.className=cls; if(text!=null) e.textContent=text; return e; }
         function showLikes(d){
           likeBtn.setAttribute('aria-pressed', d.liked ? 'true' : 'false');
           likeBtn.classList.toggle('on', !!d.liked);
@@ -284,42 +290,72 @@ REACT = """
           likeLabel.textContent = d.liked ? 'Liked' : 'Like';
           likeN.textContent = d.likes ? '(' + d.likes + ')' : '';
         }
-        function showComments(cs){
+        function render(){
           list.innerHTML='';
-          count.textContent = cs.length ? cs.length + (cs.length===1?' comment':' comments') : '';
-          if(!cs.length){ var p=document.createElement('p'); p.className='c-empty';
-            p.textContent='No comments yet. Be the first to share your thoughts.'; list.appendChild(p); return; }
-          cs.forEach(function(c){
-            var d=document.createElement('div'); d.className='c-item';
-            var h=document.createElement('div'); h.className='c-head';
-            var b=document.createElement('b'); b.textContent=c.name; h.appendChild(b);
-            var t=document.createElement('span'); t.textContent=' · '+c.at; h.appendChild(t);
-            var body=document.createElement('p'); body.textContent=c.text;
-            d.appendChild(h); d.appendChild(body); list.appendChild(d);
+          count.textContent = comments.length ? comments.length + (comments.length===1?' comment':' comments') : '';
+          if(!comments.length){ list.appendChild(el('p','c-empty','No comments yet. Be the first to share your thoughts.')); return; }
+          var mine=keys();
+          comments.forEach(function(c){
+            var d=el('div','c-item'), h=el('div','c-head');
+            h.appendChild(el('b',null,c.name));
+            h.appendChild(el('span',null,' · '+c.at+(c.edited?' · edited':'')));
+            d.appendChild(h);
+            var body=el('p',null,c.text); d.appendChild(body);
+            if(mine[c.id]){
+              var tools=el('div','c-tools'), eb=el('button','c-link','Edit'), db=el('button','c-link','Delete');
+              eb.type=db.type='button';
+              eb.onclick=function(){ editMode(d,c); };
+              db.onclick=function(){
+                if(!confirm('Delete your comment? This cannot be undone.')) return;
+                post(api+'/comment/'+c.id+'/delete',{token:mine[c.id]}).then(function(r){
+                  if(r.ok){ saveKey(c.id); comments=comments.filter(function(x){ return x.id!==c.id; }); render(); }
+                  else alert(r.error||'Could not delete.');
+                }).catch(function(){ alert('Could not delete. Please try again.'); });
+              };
+              tools.appendChild(eb); tools.appendChild(db); d.appendChild(tools);
+            }
+            list.appendChild(d);
           });
+        }
+        function editMode(d,c){
+          d.innerHTML='';
+          var ta=el('textarea','c-edit'); ta.value=c.text; ta.rows=4; ta.maxLength=2000;
+          var tools=el('div','c-tools'), sv=el('button','c-link c-save','Save'), cn=el('button','c-link','Cancel'), m=el('p','c-msg');
+          sv.type=cn.type='button';
+          cn.onclick=render;
+          sv.onclick=function(){
+            var t=ta.value.trim(); if(t.length<3){ m.textContent='Please write a little more.'; return; }
+            sv.disabled=true;
+            post(api+'/comment/'+c.id+'/edit',{token:keys()[c.id],text:t}).then(function(r){
+              if(r.ok){ comments=comments.map(function(x){ return x.id===c.id ? r.comment : x; }); render(); }
+              else { m.textContent=r.error||'Could not save.'; sv.disabled=false; }
+            }).catch(function(){ m.textContent='Could not save. Please try again.'; sv.disabled=false; });
+          };
+          d.appendChild(el('div','c-head','Editing your comment'));
+          d.appendChild(ta); tools.appendChild(sv); tools.appendChild(cn); d.appendChild(tools); d.appendChild(m);
+          ta.focus();
         }
         function offline(){
           list.innerHTML='<p class="c-empty">Comments are not available right now.</p>';
-          likeBtn.disabled=true; form.querySelector('button').disabled=true;
+          likeBtn.disabled=true; send.disabled=true;
         }
         fetch(api,{headers:{'Accept':'application/json'}}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
-          .then(function(d){ showLikes(d); showComments(d.comments||[]); }).catch(offline);
+          .then(function(d){ showLikes(d); comments=d.comments||[]; render(); }).catch(offline);
         likeBtn.addEventListener('click',function(){
           likeBtn.disabled=true;
-          fetch(api+'/like',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
-            .then(function(r){ return r.json(); }).then(showLikes)
-            .catch(function(){}).then(function(){ likeBtn.disabled=false; });
+          post(api+'/like').then(showLikes).catch(function(){}).then(function(){ likeBtn.disabled=false; });
         });
         form.addEventListener('submit',function(ev){
           ev.preventDefault();
           var data={name:form.name.value.trim(), text:form.text.value.trim(), website:form.website.value};
           if(data.name.length<2||data.text.length<3){ msg.textContent='Please add your name and a comment.'; return; }
-          send.disabled=true; msg.textContent='Sending...';
-          fetch(api+'/comment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
-            .then(function(r){ return r.json(); }).then(function(d){
-              if(d.ok){ form.reset(); msg.textContent='Thank you. Your comment will appear once it has been reviewed.'; }
-              else { msg.textContent=d.error||'Sorry, that did not go through. Please try again.'; }
-            }).catch(function(){ msg.textContent='Sorry, that did not go through. Please try again.'; })
+          send.disabled=true; msg.textContent='Posting...';
+          post(api+'/comment',data).then(function(d){
+            if(d.ok && d.comment){ saveKey(d.comment.id,d.token); comments.push(d.comment); render();
+              form.text.value=''; msg.textContent='Thank you. Your comment is posted.'; }
+            else if(d.ok){ form.text.value=''; msg.textContent='Thank you for your comment.'; }
+            else { msg.textContent=d.error||'Sorry, that did not go through. Please try again.'; }
+          }).catch(function(){ msg.textContent='Sorry, that did not go through. Please try again.'; })
             .then(function(){ send.disabled=false; });
         });
       })();
