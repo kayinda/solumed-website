@@ -88,7 +88,7 @@ section.alt{background:var(--bg)}
 .sec-head p{margin-top:14px;color:var(--ink2)}
 
 /* ---- division cards (homepage) ---- */
-.div-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.div-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:22px;max-width:860px;margin:0 auto}
 .dcard{background:var(--white);border:1px solid var(--line);border-radius:16px;padding:32px 28px;box-shadow:0 8px 24px rgba(10,46,58,.06);display:flex;flex-direction:column}
 .dcard .di{font-size:30px}
 .dcard h3{margin:14px 0 10px;font-size:20px}
@@ -296,3 +296,6 @@ footer.foot b{font-family:var(--f-display)}
 .art-rss{text-align:center;color:var(--muted);font-size:13.5px;max-width:720px;margin:36px auto 0}
 .art-rss a{color:var(--blue);text-decoration:underline}
 @media(max-width:640px){.prose{font-size:16.5px}.prose .art-lede{font-size:17.5px}.prose h2{font-size:22px}}
+.prose sup.cite a{color:var(--blue);text-decoration:none;font-weight:600;padding:0 1px}
+.prose sup.cite a:hover{text-decoration:underline}
+.prose ol.sources li:target{background:var(--mist);border-radius:6px}

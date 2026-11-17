@@ -15,24 +15,56 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
 SITE = os.path.dirname(HERE)
 BASE = "https://solumedplus.com"
-CSS_VER = "20261118a"
+CSS_VER = "20261117b"
 
 
 # ---------- tiny Markdown reader (headings, lists, bold, italic, links) ----------
-def inline(t):
+LINK = re.compile(r"\[([^\]]+)\]\(((?:[^()\s]|\([^()\s]*\))+)\)")  # URLs may hold (..), e.g. Lancet DOIs
+SOURCES = {}  # number -> (url, plain text) for the piece being built
+
+
+def cite_link(m):
+    out = []
+    for part in m.group(1).split(","):
+        a, _, b = part.partition("-")
+        nums = range(int(a), int(b or a) + 1)
+        for n in nums:
+            url, txt = SOURCES.get(n, (None, ""))
+            href = url or f"#src-{n}"
+            ext = ' target="_blank" rel="noopener"' if url else ""
+            out.append(f'<a href="{html.escape(href)}"{ext} title="{html.escape(txt)}">{n}</a>')
+    return '<sup class="cite">[' + ",".join(out) + "]</sup>"
+
+
+def inline(t, cites=True):
     t = html.escape(t, quote=False)
-    t = re.sub(r"\[([^\]]+)\]\(([^)\s]+)\)",
-               lambda m: f'<a href="{m.group(2)}"' +
-               (' target="_blank" rel="noopener"' if m.group(2).startswith("http") else "") +
-               f'>{m.group(1)}</a>', t)
+    t = LINK.sub(lambda m: f'<a href="{m.group(2)}"' +
+                 (' target="_blank" rel="noopener"' if m.group(2).startswith("http") else "") +
+                 f'>{m.group(1)}</a>', t)
     t = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", t)
     t = re.sub(r"(?<![\w*])\*(?!\s)(.+?)(?<!\s)\*(?![\w*])", r"<em>\1</em>", t)
-    t = re.sub(r"\[(\d+(?:[,-]\d+)*)\]", r'<sup class="cite">[\1]</sup>', t)
+    if cites:
+        t = re.sub(r"\[(\d+(?:[,-]\d+)*)\](?![(\w])", cite_link, t)
     return t
+
+
+def read_sources(body):
+    """Pull the numbered list under '### Sources' so in-text [n] can link straight to each source."""
+    SOURCES.clear()
+    m = re.search(r"^###\s+Sources\s*$(.*)", body, re.M | re.S)
+    if not m:
+        return
+    for line in m.group(1).splitlines():
+        mm = re.match(r"^\s*(\d+)\.\s+(.*)", line)
+        if mm:
+            link = LINK.search(mm.group(2))
+            plain = LINK.sub(lambda x: x.group(1), mm.group(2))
+            SOURCES[int(mm.group(1))] = (link.group(2) if link else None, plain)
 
 
 def md_to_html(md):
     out, para, lst = [], [], None
+    in_sources = False
 
     def flush():
         nonlocal para, lst
@@ -41,7 +73,11 @@ def md_to_html(md):
             para = []
         if lst:
             tag, items = lst
-            out.append(f"<{tag}>" + "".join(f"<li>{inline(i)}</li>" for i in items) + f"</{tag}>")
+            if in_sources and tag == "ol":
+                out.append('<ol class="sources">' + "".join(
+                    f'<li id="src-{k}">{inline(i, cites=False)}</li>' for k, i in enumerate(items, 1)) + "</ol>")
+            else:
+                out.append(f"<{tag}>" + "".join(f"<li>{inline(i)}</li>" for i in items) + f"</{tag}>")
             lst = None
 
     for raw in md.splitlines():
@@ -52,6 +88,7 @@ def md_to_html(md):
         if m:
             flush()
             n = len(m.group(1))
+            in_sources = m.group(2).strip().lower() == "sources"
             out.append(f"<h{n}>{inline(m.group(2))}</h{n}>")
             continue
         m = re.match(r"^\s*([-*]|\d+\.)\s+(.*)", line)
@@ -94,6 +131,7 @@ def read_piece(path):
     body = m.group(2)
     words = len(re.sub(r"### Sources.*", "", body, flags=re.S).split())
     meta["minutes"] = max(1, round(words / 220))
+    read_sources(body)
     meta["body_html"] = md_to_html(body)
     meta["draft"] = meta.get("draft", "").lower() in ("yes", "true")
     return meta
@@ -148,7 +186,6 @@ def head(title, desc, canonical, extra=""):
       <a href="../index.html">Home</a>
       <a href="../software.html">Software</a>
       <a href="../research.html">Research &amp; Innovation</a>
-      <a href="../logistics.html">Supply &amp; Logistics</a>
       <a href="index.html" class="active">Articles</a>
       <a class="nav-cta" href="../index.html#contact">Contact</a>
     </nav>
@@ -163,13 +200,12 @@ FOOT = """
     <div>
       <div class="brand" style="margin-bottom:6px"><img class="logo" src="../img/mark-dark.svg" alt="" width="40" height="40"><b>Solumed <span class="plus">Plus</span> Limited</b></div>
       <div class="tag">Solving Health. Scaling Solutions.</div>
-      <div class="pillars">Healthcare · Technology · Logistics</div>
-      <p style="font-size:13px;margin-top:12px">Software, research &amp; innovation, and supply &amp; logistics - built in Uganda for East Africa.</p>
+      <div class="pillars">Healthcare · Technology · Research</div>
+      <p style="font-size:13px;margin-top:12px">Health research &amp; innovation and business software - built in Uganda for East Africa.</p>
     </div>
     <div><h4>Our work</h4>
       <a href="../software.html">Software Solutions</a><a href="../sbm.html">Business Manager</a>
       <a href="../research.html">Research &amp; Innovation</a>
-      <a href="../logistics.html">Supply &amp; Logistics</a>
       <a href="index.html">Articles</a></div>
     <div><h4>Contact</h4>
       <a href="mailto:info@solumedplus.com">info@solumedplus.com</a>
