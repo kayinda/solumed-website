@@ -127,6 +127,8 @@ def read_piece(path):
     meta.setdefault("author", "Kayinda Francis")
     meta.setdefault("topic", "")
     meta["slug"] = os.path.splitext(os.path.basename(path))[0]
+    st = os.stat(path)
+    meta["made"] = getattr(st, "st_birthtime", st.st_mtime)  # tie-break for pieces with the same date
     meta["date_obj"] = date.fromisoformat(meta["date"])
     body = m.group(2)
     words = len(re.sub(r"### Sources.*", "", body, flags=re.S).split())
@@ -340,7 +342,7 @@ def main():
     for a in items:
         if "—" in a["body_html"] + a["title"] + a["summary"]:
             print(f"warning: em dash in {a['slug']}")
-    live = sorted([a for a in items if not a["draft"]], key=lambda a: a["date"], reverse=True)
+    live = sorted([a for a in items if not a["draft"]], key=lambda a: (a["date"], a["made"]), reverse=True)
     for a in items:
         open(os.path.join(HERE, a["slug"] + ".html"), "w", encoding="utf-8").write(article_page(a))
         print(("draft  " if a["draft"] else "built  ") + f"articles/{a['slug']}.html")
