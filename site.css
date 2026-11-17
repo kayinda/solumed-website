@@ -299,3 +299,37 @@ footer.foot b{font-family:var(--f-display)}
 .prose sup.cite a{color:var(--blue);text-decoration:none;font-weight:600;padding:0 1px}
 .prose sup.cite a:hover{text-decoration:underline}
 .prose ol.sources li:target{background:var(--mist);border-radius:6px}
+/* article likes + comments */
+.art-react{margin-top:44px;padding-top:28px;border-top:1px solid var(--line)}
+.react-bar{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+.like-btn{display:inline-flex;align-items:center;gap:8px;padding:10px 20px;border-radius:999px;border:1.5px solid var(--blue);background:#fff;color:var(--blue);font:600 15px var(--f-body);cursor:pointer;transition:.15s}
+.like-btn:hover{background:var(--mist)}
+.like-btn.on{background:var(--blue);color:#fff}
+.like-btn .heart{font-size:19px;line-height:1}
+.like-btn:disabled{opacity:.6;cursor:default}
+.react-meta{color:var(--muted);font-size:14.5px}
+.art-react h2{margin-top:28px}
+.c-list{display:flex;flex-direction:column;gap:14px;margin-bottom:26px}
+.c-item{background:var(--cloud);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
+.c-item p{margin:6px 0 0;font-size:16px;white-space:pre-line}
+.c-head{font-size:14px;color:var(--muted)}
+.c-head b{color:var(--ink)}
+.c-empty{color:var(--muted);font-size:15px}
+.c-form{background:var(--cloud);border:1px solid var(--line);border-radius:14px;padding:20px;display:flex;flex-direction:column;gap:8px}
+.c-form h3{margin:0 0 6px;font-size:18px}
+.c-form label{font-size:14px;font-weight:600;color:var(--ink2)}
+.c-form input,.c-form textarea{font:16px var(--f-body);padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#fff;color:var(--ink);width:100%}
+.c-form input:focus,.c-form textarea:focus{outline:2px solid var(--teal);border-color:var(--teal)}
+.c-rules{font-size:13.5px;color:var(--muted);margin:4px 0 6px}
+.c-form .btn{align-self:flex-start}
+.c-msg{font-size:14.5px;color:var(--ink2);margin:4px 0 0;min-height:1em}
+.c-hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+/* folded reference list */
+.art-sources{margin:34px 0 0;border:1px solid var(--line);border-radius:12px;background:var(--cloud)}
+.art-sources summary{cursor:pointer;padding:14px 18px;font:600 15px var(--f-body);color:var(--ink2);list-style:none}
+.art-sources summary::-webkit-details-marker{display:none}
+.art-sources summary::before{content:"+";display:inline-block;width:18px;color:var(--teal-deep);font-weight:700}
+.art-sources[open] summary::before{content:"\2212"}
+.art-sources ol.sources{margin:0 18px 16px 40px;font-size:14px;line-height:1.55;color:var(--ink2)}
+.art-sources ol.sources li{margin-bottom:8px;word-break:break-word}
+@media print{.art-sources ol.sources{display:block}.art-sources summary::before{content:""}}

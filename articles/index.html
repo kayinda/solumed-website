@@ -27,7 +27,7 @@
 <link rel="icon" href="../favicon-32.png" sizes="32x32" type="image/png">
 <link rel="apple-touch-icon" href="../apple-touch-icon.png">
 <meta name="theme-color" content="#0B4F8A">
-<link rel="stylesheet" href="../site.css?v=20261117b">
+<link rel="stylesheet" href="../site.css?v=20261117d">
 </head>
 <body>
 
@@ -104,6 +104,7 @@
   var mb=document.getElementById('menuBtn'),nl=document.getElementById('navLinks');
   mb.addEventListener('click',function(){nl.classList.toggle('open');});
   nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});
+  window.addEventListener('beforeprint',function(){document.querySelectorAll('details.art-sources').forEach(function(d){d.open=true;});});
   var cp=document.getElementById('copyLink');
   if(cp){cp.addEventListener('click',function(){try{navigator.clipboard.writeText(location.href);cp.textContent='Link copied';}catch(e){}});}
   var GC="kaysfrancis";if(GC){var g=document.createElement('script');g.async=true;g.src='//gc.zgo.at/count.js';

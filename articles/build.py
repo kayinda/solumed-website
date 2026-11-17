@@ -15,7 +15,7 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 SRC = os.path.join(HERE, "src")
 SITE = os.path.dirname(HERE)
 BASE = "https://solumedplus.com"
-CSS_VER = "20261117b"
+CSS_VER = "20261117d"
 
 
 # ---------- tiny Markdown reader (headings, lists, bold, italic, links) ----------
@@ -135,6 +135,13 @@ def read_piece(path):
     meta["minutes"] = max(1, round(words / 220))
     read_sources(body)
     meta["body_html"] = md_to_html(body)
+    # Fold the reference list into a closed "Sources (n)" box: the in-text [n] links
+    # already open each source, so the full list stays available without crowding the page.
+    meta["body_html"] = re.sub(
+        r'<h3>Sources</h3>\s*(<ol class="sources">.*?</ol>)',
+        lambda m: '<details class="art-sources"><summary>Sources (%d)</summary>%s</details>'
+        % (m.group(1).count("<li "), m.group(1)),
+        meta["body_html"], flags=re.S)
     meta["draft"] = meta.get("draft", "").lower() in ("yes", "true")
     return meta
 
@@ -221,6 +228,7 @@ FOOT = """
   var mb=document.getElementById('menuBtn'),nl=document.getElementById('navLinks');
   mb.addEventListener('click',function(){nl.classList.toggle('open');});
   nl.querySelectorAll('a').forEach(function(a){a.addEventListener('click',function(){nl.classList.remove('open');});});
+  window.addEventListener('beforeprint',function(){document.querySelectorAll('details.art-sources').forEach(function(d){d.open=true;});});
   var cp=document.getElementById('copyLink');
   if(cp){cp.addEventListener('click',function(){try{navigator.clipboard.writeText(location.href);cp.textContent='Link copied';}catch(e){}});}
   var GC="kaysfrancis";if(GC){var g=document.createElement('script');g.async=true;g.src='//gc.zgo.at/count.js';
@@ -232,6 +240,90 @@ FOOT = """
 
 DISCLAIMER = ("This article is general health information, not medical advice. If you or someone in your care "
               "is unwell, see a qualified health worker. Views are the author's own.")
+
+
+# Likes and comments. The server side lives in the Solumed Online app (app.py:
+# /api/articles/<slug>, /like, /comment; moderation at /comments?key=ADMIN_TOKEN).
+# Comments only appear after they are approved. If the API is unreachable (for
+# example in a local preview) the block says so and the article still works.
+REACT = """
+      <section class="art-react" id="react" data-slug="__SLUG__">
+        <div class="react-bar">
+          <button class="like-btn" id="likeBtn" type="button" aria-pressed="false">
+            <span class="heart" aria-hidden="true">&#9825;</span> <span id="likeLabel">Like</span>
+            <span class="like-n" id="likeN"></span></button>
+          <span class="react-meta" id="cCount"></span>
+        </div>
+        <h2>Comments</h2>
+        <div class="c-list" id="cList"><p class="c-empty">Loading comments...</p></div>
+        <form class="c-form" id="cForm" novalidate>
+          <h3>Leave a comment</h3>
+          <label for="cName">Your name</label>
+          <input id="cName" name="name" maxlength="60" autocomplete="name" required>
+          <label for="cText">Your comment</label>
+          <textarea id="cText" name="text" rows="4" maxlength="2000" required></textarea>
+          <div class="c-hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></div>
+          <p class="c-rules">Comments are read before they appear. Please be respectful, and do not share
+            personal medical details: we cannot give individual medical advice here. Links are not allowed.</p>
+          <button class="btn btn-orange" type="submit" id="cSend">Post comment</button>
+          <p class="c-msg" id="cMsg" role="status"></p>
+        </form>
+      </section>
+      <script>
+      (function(){
+        var box=document.getElementById('react'); if(!box) return;
+        var slug=box.getAttribute('data-slug'), api='/api/articles/'+slug;
+        var likeBtn=document.getElementById('likeBtn'), likeN=document.getElementById('likeN'),
+            likeLabel=document.getElementById('likeLabel'), list=document.getElementById('cList'),
+            count=document.getElementById('cCount'), form=document.getElementById('cForm'),
+            msg=document.getElementById('cMsg'), send=document.getElementById('cSend');
+        function showLikes(d){
+          likeBtn.setAttribute('aria-pressed', d.liked ? 'true' : 'false');
+          likeBtn.classList.toggle('on', !!d.liked);
+          likeBtn.querySelector('.heart').innerHTML = d.liked ? '&#9829;' : '&#9825;';
+          likeLabel.textContent = d.liked ? 'Liked' : 'Like';
+          likeN.textContent = d.likes ? '(' + d.likes + ')' : '';
+        }
+        function showComments(cs){
+          list.innerHTML='';
+          count.textContent = cs.length ? cs.length + (cs.length===1?' comment':' comments') : '';
+          if(!cs.length){ var p=document.createElement('p'); p.className='c-empty';
+            p.textContent='No comments yet. Be the first to share your thoughts.'; list.appendChild(p); return; }
+          cs.forEach(function(c){
+            var d=document.createElement('div'); d.className='c-item';
+            var h=document.createElement('div'); h.className='c-head';
+            var b=document.createElement('b'); b.textContent=c.name; h.appendChild(b);
+            var t=document.createElement('span'); t.textContent=' · '+c.at; h.appendChild(t);
+            var body=document.createElement('p'); body.textContent=c.text;
+            d.appendChild(h); d.appendChild(body); list.appendChild(d);
+          });
+        }
+        function offline(){
+          list.innerHTML='<p class="c-empty">Comments are not available right now.</p>';
+          likeBtn.disabled=true; form.querySelector('button').disabled=true;
+        }
+        fetch(api,{headers:{'Accept':'application/json'}}).then(function(r){ if(!r.ok) throw 0; return r.json(); })
+          .then(function(d){ showLikes(d); showComments(d.comments||[]); }).catch(offline);
+        likeBtn.addEventListener('click',function(){
+          likeBtn.disabled=true;
+          fetch(api+'/like',{method:'POST',headers:{'Content-Type':'application/json'},body:'{}'})
+            .then(function(r){ return r.json(); }).then(showLikes)
+            .catch(function(){}).then(function(){ likeBtn.disabled=false; });
+        });
+        form.addEventListener('submit',function(ev){
+          ev.preventDefault();
+          var data={name:form.name.value.trim(), text:form.text.value.trim(), website:form.website.value};
+          if(data.name.length<2||data.text.length<3){ msg.textContent='Please add your name and a comment.'; return; }
+          send.disabled=true; msg.textContent='Sending...';
+          fetch(api+'/comment',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(data)})
+            .then(function(r){ return r.json(); }).then(function(d){
+              if(d.ok){ form.reset(); msg.textContent='Thank you. Your comment will appear once it has been reviewed.'; }
+              else { msg.textContent=d.error||'Sorry, that did not go through. Please try again.'; }
+            }).catch(function(){ msg.textContent='Sorry, that did not go through. Please try again.'; })
+            .then(function(){ send.disabled=false; });
+        });
+      })();
+      </script>"""
 
 
 def article_page(a):
@@ -266,6 +358,7 @@ def article_page(a):
         <button class="btn btn-ghost" id="copyLink" type="button">Copy link</button>
         <a class="btn btn-orange" href="index.html">More articles →</a>
       </div>
+""" + REACT.replace("__SLUG__", a["slug"]) + """
     </article>
   </div>
 </section>
